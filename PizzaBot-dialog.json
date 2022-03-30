@@ -1,0 +1,238 @@
+{
+  "intents": [
+    {
+      "intent": "Agradecimento_usuario",
+      "examples": [
+        {
+          "text": "Grato"
+        },
+        {
+          "text": "Muito obrigada"
+        },
+        {
+          "text": "Muito obrigado"
+        },
+        {
+          "text": "Obrigada"
+        },
+        {
+          "text": "Obrigado"
+        }
+      ],
+      "description": "Formas de agradecimento do cliente, devem ser respondidas para melhor interação."
+    },
+    {
+      "intent": "Cardápio",
+      "examples": [
+        {
+          "text": "o que vcs servem"
+        },
+        {
+          "text": "Quais as opções de pizzas vocês tem?"
+        },
+        {
+          "text": "quais sabores vcs tem"
+        },
+        {
+          "text": "Qual o cardápio ?"
+        },
+        {
+          "text": "Vocês tem borda recheada das pizzas ?"
+        },
+        {
+          "text": "Voces tem pizza doce ?"
+        }
+      ],
+      "description": "Auxiliar o cliente com os sabores da loja "
+    },
+    {
+      "intent": "Endereço",
+      "examples": [
+        {
+          "text": "Como acho voces"
+        },
+        {
+          "text": "Como chego ai ?"
+        },
+        {
+          "text": "Como posso ir até voces"
+        },
+        {
+          "text": "Onde é a Pizzaria"
+        },
+        {
+          "text": "Onde vocês então localizados"
+        }
+      ],
+      "description": "Auxiliar o usuário localizar a loja "
+    },
+    {
+      "intent": "Pedido",
+      "examples": [
+        {
+          "text": "Me manda uma de calabreza"
+        },
+        {
+          "text": "Quais sabores você tem?"
+        },
+        {
+          "text": "Quero sabor mussarela"
+        },
+        {
+          "text": "Quero uma pizza"
+        }
+      ],
+      "description": "Auxiliar ao usuário em seus pedidos"
+    }
+  ],
+  "entities": [],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Bem-vindo",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Olá. Sou Bob, assitente virtual da pizzaria Hungry Pizza  Como posso te ajudar?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Bem-vindo"
+    },
+    {
+      "type": "standard",
+      "title": "Em outros casos",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Eu não entendi. Você pode tentar reformular a frase."
+              },
+              {
+                "text": "Você pode reformular sua afirmação? Eu não estou entendendo."
+              },
+              {
+                "text": "Eu não entendi o sentido."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Em outros casos",
+      "previous_sibling": "node_9_1648582458255",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Qual sabor você quer?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Pedido",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_1_1648581779326",
+      "previous_sibling": "node_8_1648581983407"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Estamos localizados na Avenida Argemiro Honorato de Aquino nº100  / Taboão da Serra - SP - CEP:06755160"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Endereço",
+      "dialog_node": "node_5_1648582380944",
+      "previous_sibling": "node_1_1648581779326"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Temos Pizzas de Mussarela R$30,00 | Calabreza R$30,00 | Marguerita R$32,00 | Frango R$30,00 | Frango com queijo R$32,00 | Frango  com Catupiry R$32,00 | Bacalhau R$50,00 | 4 Queijos R$32,00 |Bebidas: Refrigerantes R$7,00 | Sucos de caixinha R$5,00 | Água R$4,00"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Cardápio",
+      "dialog_node": "node_8_1648581983407",
+      "previous_sibling": "Bem-vindo"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Espero que tenha ajudado, eu que agradeço e bom apetite !!!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Agradecimento_usuario",
+      "dialog_node": "node_9_1648582458255",
+      "previous_sibling": "node_5_1648582380944"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "disambiguation": {
+      "prompt": "Você quis dizer:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "Nenhuma das anteriores"
+    },
+    "human_agent_assist": {
+      "prompt": "Você quis dizer:"
+    }
+  },
+  "learning_opt_out": false,
+  "name": "PizzaBot",
+  "language": "pt-br",
+  "description": ""
+}
